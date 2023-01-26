@@ -7,7 +7,9 @@
 <body>
     <form action="/vote-for-best-movie" method="post">
         <label for="movie-vote">Enter your vote:</label>
-        <input type="text" name="movie-vote" id="movie-vote" />
+        <select name="movie-vote" id="movie-vote">
+            <option th:each="movie: ${movieList}">th:text="${movie.title}"</option>
+        </select>
         <input type="submit" value="Vote" />
     </form>
 

@@ -4,11 +4,6 @@ public abstract class RatedMovie implements Movie {
     protected String title;
     protected String maturityRating;
     protected String genre;
-
-    public RatedMovie(){
-
-    }
-
     public RatedMovie(String title, String maturityRating, String genre){
         this.title = title;
         this.genre = genre;
