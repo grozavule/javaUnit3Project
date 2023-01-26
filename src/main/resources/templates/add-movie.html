@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add a Movie</title>
+</head>
+<body>
+<form action="/addMovie" method="post">
+  <fieldset>
+    <legend>New Movie</legend>
+    <p>
+      <label for="title">Title</label><br/>
+      <input type="text" name="title" id="title" />
+    </p>
+    <p>
+      <label for="maturityRating">Maturity Rating</label><br/>
+      <select name="maturityRating" id="maturityRating">
+        <option value="G">G</option>
+        <option value="PG">PG</option>
+        <option value="PG-13">PG-13</option>
+        <option value="R">R</option>
+        <option value="NC-17">NC-17</option>
+      </select>
+    </p>
+    <p>
+      <label for="genre">Genre</label><br/>
+      <input type="text" name="genre" id="genre" />
+    </p>
+    <input type="submit" value="Save" />
+  </fieldset>
+</form>
+</body>
+</html>

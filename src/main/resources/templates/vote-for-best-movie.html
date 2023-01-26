@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vote For Your Favorite Movie</title>
+</head>
+<body>
+    <form action="/vote-for-best-movie" method="post">
+        <label for="movie-vote">Enter your vote:</label>
+        <input type="text" name="movie-vote" id="movie-vote" />
+        <input type="submit" value="Vote" />
+    </form>
+
+    <p th:if="${movieVote != null}" th:text="'Your favorite movie vote is: ' + ${movieVote}"/>
+
+    <p><a href="/">Home</a></p>
+    <p><a href="/">Find the best movie</a></p>
+</body>
+</html>
