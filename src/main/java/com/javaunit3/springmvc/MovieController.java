@@ -27,9 +27,31 @@ public class MovieController {
         return "index";
     }
 
-    @RequestMapping("/add-movie")
-    public String addMovie(){
+    @RequestMapping("/add-movie-form")
+    public String addMovieForm(){
         return "add-movie";
+    }
+
+    @RequestMapping("/add-movie")
+    public String addMovie(@RequestParam("title") String movieTitle,
+                           @RequestParam("maturity-rating") String maturityRating,
+                           @RequestParam("genre") String genre,
+                           Model model){
+        //save the new movie
+        Session addSession = sessionFactory.getCurrentSession();
+        addSession.beginTransaction();
+        MovieEntity movie = new MovieEntity(movieTitle, maturityRating, genre);
+        addSession.save(movie);
+        addSession.getTransaction().commit();
+
+        //get all the movies
+        Session retrieveSession = sessionFactory.getCurrentSession();
+        retrieveSession.beginTransaction();
+        List<MovieEntity> movieEntityList = retrieveSession.createQuery("from MovieEntity").list();
+        model.addAttribute("movieList", movieEntityList);
+        retrieveSession.getTransaction().commit();
+
+        return "movie-list";
     }
     @RequestMapping("/best-movie")
     public String getBestMovie(Model model){
@@ -49,16 +71,7 @@ public class MovieController {
             voterNames.add(vote.getVoterName());
         }
         String voterNamesList = String.join(",", voterNames);
-//        Iterator<MovieEntity> i = movieEntityList.iterator();
-//        int highestVotes = 0;
-//        MovieEntity mostPopularMovie = null;
-//        while(i.hasNext()){
-//            MovieEntity currentMovie = i.next();
-//            if(currentMovie.getVoteCount() > highestVotes){
-//                highestVotes = currentMovie.getVoteCount();
-//                mostPopularMovie = currentMovie;
-//            }
-//        }
+
         model.addAttribute("mostPopularMovie", mostPopularMovie.getTitle());
         model.addAttribute("movieVoters", voterNamesList);
         session.getTransaction().commit();
@@ -76,6 +89,18 @@ public class MovieController {
         session.getTransaction().commit();
 
         return "vote-for-best-movie";
+    }
+
+    @RequestMapping("/movie-list")
+    public String showMovieList(Model model){
+        Session session = sessionFactory.getCurrentSession();
+        session.beginTransaction();
+
+        List<MovieEntity> movieEntityList = session.createQuery("from MovieEntity").list();
+        model.addAttribute("movieList", movieEntityList);
+
+        session.getTransaction().commit();
+        return "movie-list";
     }
 
     /*@RequestMapping("/vote-for-best-movie")
@@ -100,11 +125,6 @@ public class MovieController {
         session.getTransaction().commit();
 
         return "vote-for-best-movie";
-    }
-
-    @RequestMapping("/add-movie-form")
-    public String addMovieForm(){
-        return "add-movie";
     }
 
     private List<MovieEntity> getAllMovies(){

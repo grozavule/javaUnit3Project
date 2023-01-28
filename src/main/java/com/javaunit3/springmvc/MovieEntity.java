@@ -21,6 +21,14 @@ public class MovieEntity {
     @JoinColumn(name="movie_id")
     private List<VoteEntity> voteEntitiesList;
 
+    public MovieEntity(){}
+
+    public MovieEntity(String title, String maturityRating, String genre){
+        this.title = title;
+        this.maturityRating = maturityRating;
+        this.genre = genre;
+    }
+
     public void addVote(VoteEntity vote){
         this.voteEntitiesList.add(vote);
     }
