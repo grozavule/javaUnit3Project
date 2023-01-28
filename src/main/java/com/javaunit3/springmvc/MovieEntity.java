@@ -1,6 +1,8 @@
 package com.javaunit3.springmvc;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="movies")
@@ -15,12 +17,21 @@ public class MovieEntity {
     private String maturityRating;
     @Column(name="genre")
     private String genre;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="movie_id")
+    private List<VoteEntity> voteEntitiesList;
 
-//    public MovieEntity(RatedMovie movie){
-//        this.title = movie.getTitle();
-//        this.maturityRating = movie.getMaturityRating();
-//        this.genre = movie.getGenre();
-//    }
+    public void addVote(VoteEntity vote){
+        this.voteEntitiesList.add(vote);
+    }
+
+    public List<VoteEntity> getAllVotes(){
+        return this.voteEntitiesList;
+    }
+
+    public int getVoteCount(){
+        return this.voteEntitiesList.size();
+    }
 
     public Integer getId() {
         return id;

@@ -6,16 +6,25 @@
 </head>
 <body>
     <form action="/vote-for-best-movie" method="post">
-        <label for="movie-vote">Enter your vote:</label>
-        <select name="movie-vote" id="movie-vote">
-            <option th:each="movie: ${movieList}">th:text="${movie.title}"</option>
-        </select>
-        <input type="submit" value="Vote" />
+        <fieldset>
+            <legend>Cast Your Vote</legend>
+            <p>
+                <label for="voter-name">Enter your name:</label><br/>
+                <input type="text" name="voter-name" id="voter-name" />
+            </p>
+            <p>
+                <label for="movie-vote">Pick your favorite movie:</label><br/>
+                <select name="movie-vote" id="movie-vote">
+                    <option th:each="movie : ${movieList}" th:value="${movie.id}" th:text="${movie.title}"></option>
+                </select>
+            </p>
+            <input type="submit" value="Vote" />
+        </fieldset>
     </form>
 
-    <p th:if="${movieVote != null}" th:text="'Your favorite movie vote is: ' + ${movieVote}"/>
+<!--    <p th:if="${movieVote != null}" th:text="'Your favorite movie vote is: ' + ${movieVote}"/>-->
 
     <p><a href="/">Home</a></p>
-    <p><a href="/">Find the best movie</a></p>
+    <p><a href="/best-movie">Find the best movie</a></p>
 </body>
 </html>

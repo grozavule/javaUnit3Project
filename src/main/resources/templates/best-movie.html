@@ -5,7 +5,11 @@
     <title>And the best movie is...</title>
 </head>
 <body>
-    <p th:text="'The best movie is: ' + ${bestMovie}" />
+<!--    <p th:text="'The best movie is: ' + ${bestMovie}" />-->
+    <p th:text="'The most popular movie is: ' + ${mostPopularMovie}" />
+
+    <p>Thanks to those who voted for it:</p>
+    <p th:text="${voteNamesList}" />
     <p><a href="/">Home</a></p>
     <p><a href="/vote-for-best-movie-form">Vote for the best movie</a></p>
 </body>
